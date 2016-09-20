@@ -28,6 +28,7 @@ def read_data(metafile):
     entries = pd.read_csv(metafile, delimiter=',', header=0)
     tracker_data = map(read_trackers, entries["filename"]
     data = zip(entries["class"], tracker_data)
+    return data
 
 if __name__ == '__main__':
     metafile = '../misc/ucf_sports.csv'
