@@ -3,7 +3,7 @@ import argparse
 
 def create_parser():
     arguments = [
-        ['-i', '--input', "input filename", str, "train_set"],
+        ['-i', '--input', "input filename", str, "descriptors"],
         #['-v', '--validate', "validation set", str, 'validation_set']
     ]
 
