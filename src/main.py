@@ -14,6 +14,8 @@ if __name__ == '__main__':
 
     # Extract data.
     data = read_trackers(args.descriptors)
+    
+    
 
 
 
