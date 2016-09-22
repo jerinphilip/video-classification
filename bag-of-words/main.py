@@ -14,14 +14,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Extract data.
-    data = read_data(args.descriptors)
-    extract_feature = lambda x: x.HOG
-    extract_features = lambda x: (x[0], list(map(extract_feature, x[1])))
-    #print(list(map(extract_feature, data[0][1])))
-    #exit()
-    _class, descriptors = zip(*list(map(extract_features, data)))
+    data = read_data(args.descriptors, "HOG")
+    _class, descriptors = zip(*data)
+
     descriptors_flattened = np.array(reduce(add, descriptors))
-    #print(_class)
     words = cu.generate_BagOfWords(descriptors_flattened, 3)
     change_basis = lambda x: cu.generate_histograms(words, x)
     transform = lambda x: list(map(change_basis, x))

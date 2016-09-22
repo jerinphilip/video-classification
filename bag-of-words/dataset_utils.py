@@ -2,6 +2,7 @@ from _utils import scanl
 from operator import add
 from collections import namedtuple
 import pandas as pd
+from functools import partial
 import numpy as np
 
 def extract(line):
@@ -18,14 +19,16 @@ def extract(line):
     return sample._make(final_tuple)
 
 
-def read_trackers(filename):
+def read_trackers(descriptor, filename):
     with open(filename, 'r') as trajectory_file:
-        data = list(map(extract, trajectory_file))
+        modified_extract = lambda x: extract(x)._asdict()[descriptor]
+        data = list(map(modified_extract, trajectory_file))
         return data
 
 
-def read_data(metafile):
+def read_data(metafile, descriptor):
     entries = pd.read_csv(metafile, delimiter=',', header=0)
-    tracker_data = list(map(read_trackers, entries["filename"]))
+    rt_modified = partial(read_trackers, descriptor)
+    tracker_data = list(map(rt_modified, entries["filename"]))
     data = list(zip(entries["class"], tracker_data))
     return data
