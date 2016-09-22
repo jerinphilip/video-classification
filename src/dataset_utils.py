@@ -20,16 +20,12 @@ def extract(line):
 
 def read_trackers(filename):
     with open(filename, 'r') as trajectory_file:
-        data = map(extract, trajectory_file)
+        data = list(map(extract, trajectory_file))
         return data
 
 
 def read_data(metafile):
     entries = pd.read_csv(metafile, delimiter=',', header=0)
-    tracker_data = map(read_trackers, entries["filename"]
-    data = zip(entries["class"], tracker_data)
+    tracker_data = list(map(read_trackers, entries["filename"]))
+    data = list(zip(entries["class"], tracker_data))
     return data
-
-if __name__ == '__main__':
-    metafile = '../misc/ucf_sports.csv'
-    print(read_data(metafile))
