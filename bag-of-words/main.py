@@ -1,6 +1,6 @@
 from parser import create_parser
-from matplotlib import pyplot as plt
-import matplotlib.colors
+#from matplotlib import pyplot as plt
+#import matplotlib.colors
 from functools import partial, reduce
 from dataset_utils import read_data
 from operator import add
