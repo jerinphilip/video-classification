@@ -17,18 +17,29 @@ if __name__ == '__main__':
     cluster_size = 6
 
     # Extract data.
-    data = read_data(args.metafile, args.descriptor)
+    print("Reading data...",)
+    data = read_data(args.metafile, args.descriptor, 0.1)
+    #data = read_data(args.metafile, args.descriptor, 1)
+    print("Done.")
     _class, descriptors = zip(*data)
 
+    print("Squeezing...",)
     descriptors_flattened = np.array(reduce(add, descriptors))
+    print("Done")
+
     # Generate K Means
+    print("Computing KMeans...",)
     K = cu.generate_BagOfWords(descriptors_flattened, cluster_size)
+    print("Done")
 
     # Convert each sample into histogram of bag of features
+    print("Converting to histograms...",)
     generate_histogram = lambda x: np.histogram(K.predict(x), 
             bins = range(cluster_size))
-    tranformed = list(map(generate_histogram, descriptors))
-    packed = list(zip(_class, tranformed))
+    transformed = list(map(generate_histogram, descriptors))
+    print(transformed)
+    print("Done")
+    packed = list(zip(_class, transformed))
     write_data(args.outputfile, packed)
 
 

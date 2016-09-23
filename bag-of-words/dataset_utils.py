@@ -26,8 +26,9 @@ def read_trackers(descriptor, filename):
         return data
 
 
-def read_data(metafile, descriptor):
+def read_data(metafile, descriptor, frac):
     entries = pd.read_csv(metafile, delimiter=',', header=0)
+    entries = entries.sample(frac=frac)
     rt_modified = partial(read_trackers, descriptor)
     tracker_data = list(map(rt_modified, entries["filename"]))
     data = list(zip(entries["class"], tracker_data))
@@ -35,5 +36,4 @@ def read_data(metafile, descriptor):
 
 def write_data(outputfile, mapping):
     data = pd.DataFrame(mapping, columns=['class', 'histogram'])
-    print(data)
     data.to_csv(outputfile, delimiter=',')
