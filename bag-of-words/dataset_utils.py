@@ -32,3 +32,8 @@ def read_data(metafile, descriptor):
     tracker_data = list(map(rt_modified, entries["filename"]))
     data = list(zip(entries["class"], tracker_data))
     return data
+
+def write_data(outputfile, mapping):
+    data = pd.DataFrame(mapping, columns=['class', 'histogram'])
+    print(data)
+    data.to_csv(outputfile, delimiter=',')

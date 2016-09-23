@@ -3,7 +3,9 @@ import argparse
 
 def create_parser():
     arguments = [
-        ['-i', '--input', "input filename", str, "descriptors"],
+        ['-i', '--input', "input filename", str, "metafile"],
+        ['-d', '--descriptor', "Descriptor to use", str, "descriptor"],
+        ['-o', '--output', "Output filenam", str, "outputfile"],
         #['-v', '--validate', "validation set", str, 'validation_set']
     ]
 
