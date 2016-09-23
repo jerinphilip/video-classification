@@ -14,14 +14,16 @@ def generate_BagOfWords(data, count=4096):
     K = KMeans(n_clusters=count)
     K.fit(data)
     #print("Generating cluster centers", K.cluster_centers_)
-    return np.array(K.cluster_centers_)
+    return K
 
-def generate_histograms(sample, words):
+
+def generate_histograms(sample, K):
     # For each entry in data, project it onto the words basis
     # get a histogram representation
-    project_basis = partial(project, words)
-    contributions = np.array(list(map(project_basis, sample)))
-    transformed = np.sum(contributions, axis=0)
+    #project_basis = partial(project, words)
+    get_cluster = lambda x: K.predict(x)
+    contributions = np.array(list(map(get_cluster, sample)))
+    #transformed = np.sum(contributions, axis=0)
+    transformed = np.histogram(contributions, bins=range(len(K.cluster_centers_)))
+    print(transformed)
     return transformed
-
-
