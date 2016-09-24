@@ -5,9 +5,6 @@ import numpy as np
 from pykernels.regular import GeneralizedHistogramIntersection
 
 class SVM:
-#			    X = np.array([[1,1], [0,0], [1,0], [0,1]])
-#               y = np.array([1, 1, 0, 0])
-
 	def train(self,data,classes):
 		print 'Training:'
 		for clf, name in [(SVC(kernel=GeneralizedHistogramIntersection(), C=1000), 'pykernel')]:
