@@ -1,4 +1,4 @@
-from _utils import scanl
+from bow._utils import scanl
 from operator import add
 from collections import namedtuple
 import pandas as pd
@@ -37,3 +37,7 @@ def read_data(metafile, descriptor, frac):
 def write_data(outputfile, mapping):
     data = pd.DataFrame(mapping, columns=['class', 'histogram'])
     data.to_csv(outputfile, delimiter=',')
+
+def save_cluster_centers(cluster_centers, fname):
+    cluster_centers = list(map(np.array, cluster_centers))
+    np.save(fname, cluster_centers)
