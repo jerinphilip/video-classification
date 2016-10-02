@@ -18,8 +18,8 @@ if __name__ == '__main__':
 
     # Extract data.
     print("Reading data...",)
-    #data = du.read_data(args.metafile, args.descriptor, 0.1)
     data = du.read_data(args.metafile, args.descriptor, 1)
+    #data = du.read_data(args.metafile, args.descriptor, 1)
     print("Done.")
     _class, descriptors = zip(*data)
 
