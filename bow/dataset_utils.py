@@ -41,3 +41,9 @@ def write_data(outputfile, mapping):
 def save_cluster_centers(cluster_centers, fname):
     cluster_centers = list(map(np.array, cluster_centers))
     np.save(fname, cluster_centers)
+
+def read_kmeans(filename):
+    parse = lambda line: list(map(float, line.strip().split(' ')))
+    with open(filename, 'r') as meanfile:
+        means = list(map(parse, meanfile))
+        return means
