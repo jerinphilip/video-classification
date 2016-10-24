@@ -25,3 +25,10 @@ def generate_histograms(sample, K):
     #transformed = np.sum(contributions, axis=0)
     transformed = np.histogram(contributions, bins=range(len(K.cluster_centers_)))
     return transformed
+
+def find_nearest(v, D):
+    distance = lambda x, y: np.dot(x-y, x-y)
+    f = partial(distance, v)
+    distances = list(map(f, D))
+    index = distances.index(max(distances))
+    return index
