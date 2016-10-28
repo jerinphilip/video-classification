@@ -13,12 +13,6 @@ def generate_histogram(kmeans, descriptors):
         vecs[cu.find_nearest(kmeans,vec)] += 1;
     return vecs
 
-def flatten_data(data):
-    result = []
-    for ds in data:
-        for d in ds:
-            result.append(d)
-    return result
 
 
 def read_data(metafile, descriptor, frac, kmeans):
@@ -29,10 +23,10 @@ def read_data(metafile, descriptor, frac, kmeans):
     result = []
     for (label, fname) in zip(entries["class"], entries["filename"]):
             print(label, fname)
-            data = du.read_trackers_by_volume(descriptor, fname)
-            data = flatten_data(data)
-            hgram = generate_histogram(kmeans, data)
-            result.append((label, hgram))
+            datas = du.read_trackers_by_volume(descriptor, fname)
+            for data in datas:
+                hgram = generate_histogram(kmeans, data)
+                result.append((label, hgram))
     return result
 
 def convert(h):
