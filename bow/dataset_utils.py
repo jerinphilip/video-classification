@@ -19,10 +19,36 @@ def extract(line):
     return sample._make(final_tuple)
 
 
+
 def read_trackers(descriptor, filename):
     with open(filename, 'r') as trajectory_file:
         modified_extract = lambda x: extract(x)._asdict()[descriptor]
         data = list(map(modified_extract, trajectory_file))
+        return data
+
+def extract_with_frameNum(descriptor, x):
+    result = extract(x).as_dict();
+    frameNum = int(result['frameNum'])
+    feature = result[descriptor]
+    return (frameNum, feature)
+
+def postprocess_to_samples(data):
+    fNos, features = zip(*data)
+    start = min(fNos)
+    data_new = [[] for i in range(len(data))]
+    for (fno, feature) in data:
+        data_new[fno-start].append(feature)
+    return data_new
+
+
+
+
+def read_trackers_by_volume(descriptor, filename):
+    with open(filename, 'r') as trajectory_file:
+        #modified_extract = lambda x: extract(x)._asdict()[descriptor]
+        modified_extract = partial(extract_with_frameNum, descriptor)
+        data = list(map(modified_extract, trajectory_file))
+        data = postprocess_to_samples(data)
         return data
 
 
