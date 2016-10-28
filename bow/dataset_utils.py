@@ -43,7 +43,7 @@ def save_cluster_centers(cluster_centers, fname):
     np.save(fname, cluster_centers)
 
 def read_kmeans(filename):
-    parse = lambda line: list(map(float, line.strip().split(' ')))
+    parse = lambda line: list(map(float, line.strip().split(' ')))[1:]
     with open(filename, 'r') as meanfile:
-        means = np.array(list(map(parse, meanfile)))
-        return means
+        means = list(map(parse, meanfile))
+        return np.array(means)
