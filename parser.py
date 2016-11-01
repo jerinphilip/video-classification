@@ -35,7 +35,7 @@ def create_parser_kmeans():
     arguments = [
         ['-i', '--input', "input filename", str, "metafile"],
         ['-d', '--descriptor', "Descriptor to use", str, "descriptor"],
-        ['-k', '--kmeans', "Output filename", str, "kmeans"],
-        #['-v', '--validate', "validation set", str, 'validation_set']
+        ['-k', '--kmeans', "Kmeans input filename", str, "kmeans"],
+        ['-o', '--outfile', "Output filename", str, 'outfile']
     ]
     return base_create_parser(arguments)

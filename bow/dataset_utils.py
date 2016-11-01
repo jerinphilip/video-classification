@@ -27,15 +27,15 @@ def read_trackers(descriptor, filename):
         return data
 
 def extract_with_frameNum(descriptor, x):
-    result = extract(x).as_dict();
+    result = extract(x)._asdict()
     frameNum = int(result['frameNum'])
     feature = result[descriptor]
     return (frameNum, feature)
 
 def postprocess_to_samples(data):
     fNos, features = zip(*data)
-    start = min(fNos)
-    data_new = [[] for i in range(len(data))]
+    start, end = min(fNos), max(fNos)
+    data_new = [[] for i in range(end-start+1)]
     for (fno, feature) in data:
         data_new[fno-start].append(feature)
     return data_new

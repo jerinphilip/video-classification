@@ -24,9 +24,13 @@ def read_data(metafile, descriptor, frac, kmeans):
     for (label, fname) in zip(entries["class"], entries["filename"]):
             print(label, fname)
             datas = du.read_trackers_by_volume(descriptor, fname)
+            count = 0
             for data in datas:
+                print(len(data), "features")
                 hgram = generate_histogram(kmeans, data)
+                count = count + 1
                 result.append((label, hgram))
+            print("Got %d samples from %s"%(count, fname))
     return result
 
 def convert(h):
@@ -54,7 +58,7 @@ if __name__ == '__main__':
     means = du.read_kmeans(args.kmeans)
     print("Reading data...")
     data = read_data(args.metafile, args.descriptor, 1, means)
-    f_input = open("svm_input.txt",'w')
+    f_input = open(args.outfile,'w')
     outstring = serialize(data)
     f_input.write(outstring)
     f_input.close()
