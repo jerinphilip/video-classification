@@ -1,0 +1,16 @@
+Used fuse-zip to mount, and find -cp parents to selectively copy *.avi.
+Removed empty avi files, because they will cause errors.
+Downsample the videos.
+Run densetrack executable on it.
+
+
+All paths relative to /
+before running scripts/ (This directory has the scripts for densetrack, ffmpeg) on find, run it normally, delete any new files and then run it with find.
+
+Next select 100k random features using sort -R $file |head -n 100000 >$file.100k
+
+Next, run kmeans using GPU ( Code will have to be recompiled for a different GPU). Specify the number of clusters ( -n 4096 ). Now you'll get cluster centres and cluster memberships.
+
+Next, project_kmeans to all data, this will generate bag-of-words input.
+
+Next run svm-train-gpu, and svm-predict after splitting data into train and test using subset.py / sort -R. sort -R uses multiple cores so it's faster.
